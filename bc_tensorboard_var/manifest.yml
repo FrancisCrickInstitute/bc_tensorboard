@@ -1,0 +1,12 @@
+---
+name: TensorBoard
+category: Interactive Apps
+subcategory: GUIs
+role: batch_connect
+description: |
+  This app will launch [TensorBoard], [TensorFlow]'s Visualization Toolkit, on [NEMO].
+
+  WARNING: If you encounter 403 forbidden resource, wait a couple minutes and then connect to Tensorboard again. If the problem still persists after a long period of time please contact the HPC team.
+  [TensorBoard]: https://www.tensorflow.org/guide/summaries_and_tensorboard
+  [TensorFlow]: https://www.tensorflow.org/
+  [NEMO]: https://wiki.thecrick.org/display/HPC/Research+Computing+Platforms+%7C+HPC+services

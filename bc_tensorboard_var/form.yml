@@ -1,0 +1,22 @@
+cluster: "sherlock"
+
+form:
+  - auto_modules_py-tensorflow
+  - tb_logdir
+  - tb_extra_args
+
+
+attributes:
+
+  auto_modules_py-tensorflow:
+    label: "Tensorflow version"
+    default: false
+
+  #tb_logdir:
+    #label: "Tensorboard logdir"
+    #required: true
+    #help: "The directory that contains data to visualize."
+
+  tb_extra_args:
+    label: "Additional TensorBoard arguments (optional)"
+

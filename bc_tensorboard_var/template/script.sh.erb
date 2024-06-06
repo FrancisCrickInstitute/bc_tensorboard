@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# set workspace
+cd <%= context.bc_workspace.blank? ? "$HOME" : context.bc_workspace %>
+
+# check if the user specified the default log dir 
+LOGDIR=<%= context.tb_logdir %>
+
+if [[ ! "$LOGDIR" =~ ^(/[^/ ]*)+/?$ ]]; then
+  LOGDIR='<%= CurrentUser.home %>/tb_logdir'
+fi
+
+
+
+echo $port
+# start server
+# start on 127.0.0.1, since TensorBoard doesn't support any kind of authentication
+# and we rely on authrevproxy to only allow authentified requests
+ml
+
+#tensorboard --logdir=<%= context.tb_logdir %> <%= context.tb_extra_args %> \
+#	    --host=127.0.0.1 \
+#	    --port="${app_port}"
+tensorboard --logdir=$LOGDIR <%= context.tb_extra_args %> \
+           --host=127.0.0.1 \
+           --port="${app_port}"
+

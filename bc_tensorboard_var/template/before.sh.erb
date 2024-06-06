@@ -1,0 +1,30 @@
+# export the module function if it exists
+[[ $(type -t module) == "function" ]] && export -f module
+
+# find available port to run server on
+export app_port=$(find_port "$host")
+
+# find another available port to run the AuthRevProxy on
+port=$(find_port "$host")
+export proxy_port=$port
+
+# generate password
+password=$(create_passwd 32)
+
+# export token for cookie verification by authrevproxy
+# replace dashes by underscores in session.id
+export _ood_token_<%= session.id.gsub("-","_") %>=$password
+
+# reset modules
+ml reset
+
+#ml use /camp/apps/eb/dev/modules/all/
+ml --ignore-cache Twisted/24.3.0-foss-2022a-Python-3.10.4
+
+module load <%= context.tensorflow_version %>
+<%- unless context.bc_modules.blank? -%>
+module load <%= context.bc_modules %>
+<%- end -%>
+
+# background start authrevproxy, to authentify web requests to the application
+bin/authrevproxy.py --app-port="$app_port" --proxy-port="$proxy_port" &
